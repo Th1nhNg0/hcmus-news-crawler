@@ -3,8 +3,10 @@ import pdt from "./crawler/pdt";
 import { CronJob } from "cron";
 import axios from "axios";
 import moment from "moment";
-const webhookUrl =
-  "https://discord.com/api/webhooks/953867702408196186/yCsbanrR1hDTY8GWjBdx4TZPoG5Y9scVdaTS69cxDhcSoaOligOHModx7mlwVUO8fYrn";
+import dotenv from "dotenv";
+dotenv.config();
+
+const webhookUrl = process.env.DISCORD_WEBHOOK as string;
 
 async function Job() {
   console.log("Run  job at", moment().format("HH:mm:ss DD-MM-YYYY"));
