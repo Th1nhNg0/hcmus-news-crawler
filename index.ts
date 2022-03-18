@@ -4,6 +4,7 @@ import { CronJob } from "cron";
 import axios from "axios";
 import moment from "moment";
 import dotenv from "dotenv";
+import fs from "fs";
 dotenv.config();
 
 const webhookUrl = process.env.DISCORD_WEBHOOK as string;
@@ -60,5 +61,16 @@ async function Job() {
   }
 }
 
-var job = new CronJob("*/5 * * * *", Job, null, true);
+if (!fs.existsSync("./data")) {
+  fs.mkdirSync("./data");
+}
+var job = new CronJob(
+  "*/5 * * * *",
+  Job,
+  null,
+  true,
+  "Asia/Ho_Chi_Minh",
+  null,
+  true
+);
 job.start();
