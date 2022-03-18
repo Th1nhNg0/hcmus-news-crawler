@@ -59,6 +59,10 @@ async function getDataFromWeb(catType: CategoryType = "DHCQ") {
             continue;
           }
           const dateMomentObject = moment(pubDateString, "DD-MM-YYYY");
+          const now = moment();
+          dateMomentObject.hour(now.hour());
+          dateMomentObject.minute(now.minute());
+          dateMomentObject.second(now.second());
           const pubDate = dateMomentObject.toDate();
           const item: INew = {
             title,
