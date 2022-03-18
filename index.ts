@@ -75,14 +75,14 @@ async function Job() {
   }
 
   if (embeds.length > 0) {
-    embeds = embeds.sort((a: any, b: any) =>
-      b.timestamp > a.timestamp ? -1 : 1
-    );
     // send to discord but limit to 10 embeds
+    embeds = embeds.sort((a: any, b: any) =>
+      a.timestamp > b.timestamp ? -1 : 1
+    );
     if (embeds.length > 10) {
       embeds = embeds.slice(0, 10);
     }
-
+    embeds = embeds.reverse();
     axios.post(webhookUrl, { embeds }).then(() => {
       console.log(`Send ${embeds.length} embeds`);
     });
