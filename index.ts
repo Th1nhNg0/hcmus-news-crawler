@@ -12,7 +12,7 @@ const webhookUrl = process.env.DISCORD_WEBHOOK as string;
 
 async function Job() {
   console.log("Run  job at", moment().format("HH:mm:ss DD-MM-YYYY"));
-  const embeds: any = [];
+  let embeds: any = [];
 
   //ktdbcl
   let data = await ktdbcl();
@@ -75,6 +75,13 @@ async function Job() {
   }
 
   if (embeds.length > 0) {
+    embeds = embeds.sort((a: any, b: any) =>
+      b.timestamp > a.timestamp ? -1 : 1
+    );
+    if (embeds.length > 5) {
+      embeds = embeds.slice(0, 5);
+    }
+
     axios.post(webhookUrl, { embeds }).then(() => {
       console.log(`Send ${embeds.length} embeds`);
     });
